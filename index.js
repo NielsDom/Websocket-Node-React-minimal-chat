@@ -1,13 +1,20 @@
-const WebSocket = require('ws');
+const express = require("express")
+const app = express();
+const server = require('http').createServer(app);
+const io = require('socket.io')(server);
 
-const wss = new WebSocket.Server({ port: 3030 });
+io.set('origins', '*:*');
 
-wss.on('connection', function connection(ws) {
-  ws.on('message', function incoming(data) {
-    wss.clients.forEach(function each(client) {
-      if (client !== ws && client.readyState === WebSocket.OPEN) {
-        client.send(data);
-      }
-    });
+io.on('connection', socket => {
+	console.log("web socket connected");
+  socket.emit('news', { hello: 'world' });
+  socket.on('channel1', function (data) {
+    console.log(data);
   });
-});
+  socket.on('channel2', data => console.log(data));
+})
+
+
+server.listen(5000, () => {
+	console.log("Server running 5000");
+})

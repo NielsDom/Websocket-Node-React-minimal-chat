@@ -6,6 +6,13 @@
   "dependencies": {
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
-    "ws": "^6.1.2"
+    "socket.io": "^2.2.0"
+  },
+  "scripts": {
+    "server": "nodemon .",
+    "client": "cd client && yarn start"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.9"
   }
 }
